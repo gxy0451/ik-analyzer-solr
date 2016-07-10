@@ -464,8 +464,8 @@ public class IKQueryExpressionParser {
 		if(this.querys.size() == 0){
 			return null;
 		}
-		
-		BooleanQuery resultQuery = new BooleanQuery();
+
+		BooleanQuery.Builder resultQueryBuilder = new BooleanQuery.Builder();
 
 		if(this.querys.size() == 1){
 			return this.querys.get(0);
@@ -476,14 +476,14 @@ public class IKQueryExpressionParser {
 		if('&' == op.type){
 			if(q1 != null){
 				if(q1 instanceof BooleanQuery){
-					BooleanClause[] clauses = ((BooleanQuery)q1).getClauses();
+					BooleanClause[] clauses = (BooleanClause[]) ((BooleanQuery)q1).clauses().toArray();
 					if(clauses.length > 0 
 							&& clauses[0].getOccur() == Occur.MUST){
 						for(BooleanClause c : clauses){
-							resultQuery.add(c);
+							resultQueryBuilder.add(c);
 						}					
 					}else{
-						resultQuery.add(q1,Occur.MUST);
+						resultQueryBuilder.add(q1,Occur.MUST);
 					}
 
 				}else{
@@ -491,20 +491,20 @@ public class IKQueryExpressionParser {
 					//q1 instanceof TermRangeQuery 
 					//q1 instanceof PhraseQuery
 					//others
-					resultQuery.add(q1,Occur.MUST);
+					resultQueryBuilder.add(q1,Occur.MUST);
 				}
 			}
 			
 			if(q2 != null){
 				if(q2 instanceof BooleanQuery){
-					BooleanClause[] clauses = ((BooleanQuery)q2).getClauses();
+					BooleanClause[] clauses = (BooleanClause[]) ((BooleanQuery)q2).clauses().toArray();
 					if(clauses.length > 0 
 							&& clauses[0].getOccur() == Occur.MUST){
 						for(BooleanClause c : clauses){
-							resultQuery.add(c);
+							resultQueryBuilder.add(c);
 						}					
 					}else{
-						resultQuery.add(q2,Occur.MUST);
+						resultQueryBuilder.add(q2,Occur.MUST);
 					}
 					
 				}else{
@@ -512,21 +512,21 @@ public class IKQueryExpressionParser {
 					//q1 instanceof TermRangeQuery 
 					//q1 instanceof PhraseQuery
 					//others
-					resultQuery.add(q2,Occur.MUST);
+					resultQueryBuilder.add(q2,Occur.MUST);
 				}
 			}
 			
 		}else if('|' == op.type){
 			if(q1 != null){
 				if(q1 instanceof BooleanQuery){
-					BooleanClause[] clauses = ((BooleanQuery)q1).getClauses();
+					BooleanClause[] clauses = (BooleanClause[]) ((BooleanQuery)q1).clauses().toArray();
 					if(clauses.length > 0 
 							&& clauses[0].getOccur() == Occur.SHOULD){
 						for(BooleanClause c : clauses){
-							resultQuery.add(c);
+							resultQueryBuilder.add(c);
 						}					
 					}else{
-						resultQuery.add(q1,Occur.SHOULD);
+						resultQueryBuilder.add(q1,Occur.SHOULD);
 					}
 					
 				}else{
@@ -534,27 +534,27 @@ public class IKQueryExpressionParser {
 					//q1 instanceof TermRangeQuery 
 					//q1 instanceof PhraseQuery
 					//others
-					resultQuery.add(q1,Occur.SHOULD);
+					resultQueryBuilder.add(q1,Occur.SHOULD);
 				}
 			}
 			
 			if(q2 != null){
 				if(q2 instanceof BooleanQuery){
-					BooleanClause[] clauses = ((BooleanQuery)q2).getClauses();
+					BooleanClause[] clauses = (BooleanClause[]) ((BooleanQuery)q2).clauses().toArray();
 					if(clauses.length > 0 
 							&& clauses[0].getOccur() == Occur.SHOULD){
 						for(BooleanClause c : clauses){
-							resultQuery.add(c);
+							resultQueryBuilder.add(c);
 						}					
 					}else{
-						resultQuery.add(q2,Occur.SHOULD);
+						resultQueryBuilder.add(q2,Occur.SHOULD);
 					}
 				}else{
 					//q2 instanceof TermQuery 
 					//q2 instanceof TermRangeQuery 
 					//q2 instanceof PhraseQuery
 					//others
-					resultQuery.add(q2,Occur.SHOULD);
+					resultQueryBuilder.add(q2,Occur.SHOULD);
 					
 				}
 			}
@@ -565,13 +565,13 @@ public class IKQueryExpressionParser {
 			}
 			
 			if(q1 instanceof BooleanQuery){
-				BooleanClause[] clauses = ((BooleanQuery)q1).getClauses();
+				BooleanClause[] clauses = (BooleanClause[]) ((BooleanQuery)q1).clauses().toArray();
 				if(clauses.length > 0){
 					for(BooleanClause c : clauses){
-						resultQuery.add(c);
+						resultQueryBuilder.add(c);
 					}					
 				}else{
-					resultQuery.add(q1,Occur.MUST);
+					resultQueryBuilder.add(q1,Occur.MUST);
 				}
 
 			}else{
@@ -579,12 +579,12 @@ public class IKQueryExpressionParser {
 				//q1 instanceof TermRangeQuery 
 				//q1 instanceof PhraseQuery
 				//others
-				resultQuery.add(q1,Occur.MUST);
-			}				
-			
-			resultQuery.add(q2,Occur.MUST_NOT);
+				resultQueryBuilder.add(q1,Occur.MUST);
+			}
+
+			resultQueryBuilder.add(q2,Occur.MUST_NOT);
 		}
-		return resultQuery;
+		return resultQueryBuilder.build();
 	}	
 	
 	/**

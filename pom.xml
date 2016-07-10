@@ -3,17 +3,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.wltea.ik-analyzer</groupId>
-  <artifactId>ik-analyzer-solr5</artifactId>
-  <version>5.x</version>
+  <artifactId>ik-analyzer-solr6</artifactId>
+  <version>6.1</version>
   <packaging>jar</packaging>
 
-  <name>ik-analyzer-solr5</name>
+  <name>ik-analyzer-solr6</name>
   <url>http://code.google.com/p/ik-analyzer/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <lucene.version>5.1.0</lucene.version>
+    <lucene.version>6.1.0</lucene.version>
 
     <javac.src.version>1.8</javac.src.version>
     <javac.target.version>1.8</javac.target.version>
