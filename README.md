@@ -1,9 +1,9 @@
 # Introduction #
-The original creator of IKAnalyzer is [Liang-Yi Lin ](linliangyi2007@gmail.com) . The project home is [http://code.google.com/p/ik-analyzer/](http://code.google.com/p/ik-analyzer/) .
+The original creator of IKAnalyzer is [Liang-Yi Lin ](linliangyi2007@gmail.com) . The project home is [http://git.oschina.net/wltea/IK-Analyzer-2012FF) .
 
 # Feature #
  - based on IK Analyer 2012-FF Hotfix 1 
- - added support for Lucene 5.1.0 API
+ - added support for Lucene 6.1.0 API
 
 #Installation #
 
@@ -40,8 +40,3 @@ or
 > [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.3:compile (default-compile) on project ik-analyzer-solr5: Fatal error compiling: invalid target release: 1.8 -> [Help 1]
 
 Answer: Please check your JAVA_HOME setting. If JAVA_HOME setting exists, it may not be JAVA8.  
-
-
-# Resources #
-1. [Build IKAnalyzer With Solr 5.1.0](http://blog.univle.com/blog/2015/06/05/build-ikanalyzer-with-solr-5-dot-1-0/)
-    
