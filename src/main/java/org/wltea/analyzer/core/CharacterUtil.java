@@ -25,6 +25,9 @@
  */
 package org.wltea.analyzer.core;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * 字符集识别工具类
@@ -41,13 +44,34 @@ class CharacterUtil {
 	
 	public static final int CHAR_OTHER_CJK = 0X00000008;
 	
-	
+	private static final Set<Character> symbolSet = new HashSet<Character>(){
+		{
+			add(',');
+			add('。');
+			add(';');
+			add('!');
+			add('?');
+			add('《');
+			add('》');
+			add(':');
+			add('、');
+			add('“');
+			add('”');
+		}
+	};
+
+	public static void main(String[] args) {
+		System.out.println(Character.UnicodeBlock.of('“'));;
+	}
 	/**
 	 * 识别字符类型
 	 * @param input
 	 * @return int CharacterUtil定义的字符类型常量
 	 */
 	static int identifyCharType(char input){
+		if(symbolSet.contains(input)){
+			return CHAR_CHINESE;
+		}
 		if(input >= '0' && input <= '9'){
 			return CHAR_ARABIC;
 			
